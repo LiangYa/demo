@@ -1,13 +1,9 @@
 package com.example.demo.entity;
 
-import com.alibaba.fastjson.annotation.JSONField;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
 
 @Data
 @Entity(name = "data_info")
@@ -34,4 +30,16 @@ public class DataInfo implements Serializable {
 
     @Column(columnDefinition = "int COMMENT '父类是否上线'")
     private Integer dep_is_online;
+
+    @Override
+    public String toString() {
+        return "DataInfo{" +
+                "tableId=" + tableId +
+                ", bpModel='" + bpModel + '\'' +
+                ", dep='" + dep + '\'' +
+                ", parent=" + parent +
+                ", model_is_online=" + model_is_online +
+                ", dep_is_online=" + dep_is_online +
+                '}';
+    }
 }
