@@ -23,7 +23,7 @@ public class DataInfoController {
     private IDataInfoService dataInfoService;
 
     /**
-     * 判断是否可以上线
+     * 判断是否可以上线。
      * @param bpModel
      * @return
      */
@@ -49,6 +49,25 @@ public class DataInfoController {
             List list = dataInfoService.getBpModelListByType(type);
             result.put("list", list);
             result.put("status", list.size());
+        }else {
+            result.put("status",-1);
+            result.put("msg","数据查询失败");
+        }
+        return JSON.toJSONString(result);
+    }
+
+    /**
+     * 更新参数
+     * @param model
+     * @return
+     */
+    @RequestMapping("/updateStatus")
+    @ResponseBody
+    public String updateStatus(String model){
+        Map<String,Object> result = new HashMap<>();
+        if (!StringUtils.isEmpty(model)){
+            result.put("msg", dataInfoService.updateStatus(model));
+            result.put("status",0);
         }else {
             result.put("status",-1);
             result.put("msg","数据查询失败");

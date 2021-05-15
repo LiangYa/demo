@@ -21,4 +21,11 @@ public interface IDataInfoService {
      * @return
      */
     public JSONArray getBpModelListByType(Integer type);
+
+    /**
+     * 更新状态
+     * @param model
+     * @return
+     */
+    public String updateStatus(String model);
 }

@@ -128,4 +128,40 @@ public class DataInfoServiceImpl implements IDataInfoService {
         res.put("name",name);
         return res;
     }
+
+
+    @Override
+    public String updateStatus(String model) {
+        String msg = "失败";
+        if (model == null) {
+            msg = "model is null!";
+            logger.info(msg);
+            return msg;
+        }
+        List<DataInfo> byBpModel = dataInfoDao.findByBpModel(model);
+        List<DataInfo> byDep = dataInfoDao.findByDep(model);
+        if (byBpModel == null && byDep == null){
+            msg = "没有数据";
+            logger.info(msg);
+            return msg;
+        } else {
+            if (byBpModel != null && byBpModel.size() > 0){
+                for (int i = 0; i < byBpModel.size(); i++){
+                    DataInfo byModel = byBpModel.get(i);
+                    byModel.setModel_is_online(1);
+                    dataInfoDao.saveAndFlush(byModel);
+                }
+            }
+            if (byDep != null && byDep.size() > 0){
+                for (int i = 0; i < byDep.size(); i++){
+                    DataInfo dep = byDep.get(i);
+                    dep.setDep_is_online(1);
+                    dataInfoDao.saveAndFlush(dep);
+                }
+            }
+        }
+        msg = "成功！";
+        return msg;
+    }
+
 }
